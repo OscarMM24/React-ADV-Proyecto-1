@@ -1,15 +1,18 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import NewPost from '../pages/NewPost/NewPost'
 import Contact from '../pages/Contact/Contact'
 import Login from '../pages/Login/Login'
 import Register from '../pages/Register/Register'
 import Home from '../pages/Home/Home'
+import { useAuthContext } from '../hooks/useAuth'
 
 const BlogRoutes = () => {
+  const { isAuth } = useAuthContext()
   return (
     <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/NewPost' element={<NewPost />} />
+      <Route path='/NewPost' element={isAuth ? : Navigate to='/Login' />}>
+        <replace />
       <Route path='/Contact' element={<Contact />} />
       <Route path='/Login' element={<Login />} />
       <Route path='/Register' element={<Register />} />

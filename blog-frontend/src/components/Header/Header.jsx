@@ -2,6 +2,9 @@ import { NavLink } from 'react-router-dom'
 import './header.css'
 
 const Header = () => {
+  const{userPayload, isAuth, logout} = useAuthContext()
+
+
   const menuItems = [
     { id: 'inicio', label: 'Inicio', path: '/' },
     { id: 'newpost', label: 'Escribir', path: '/newpost' },
@@ -30,6 +33,16 @@ const Header = () => {
         </div>
 
         <div className='header-right'>
+          {isAuth ? (
+            <span className='nav-item' onClick={logout}>
+              Cerrar sesión
+            </span>
+          ) : (
+            <>
+              <NavLink to='/login' className='nav-item'> Iniciar sesión</NavLink>
+              <NavLink to='/register' className='nav-item'> Registrarse</NavLink>
+            </>
+          )}
           <NavLink to='/login' className='nav-item'> Iniciar sesión</NavLink>
           <NavLink to='/register' className='nav-item'> Registrarse</NavLink>
           <span
@@ -42,11 +55,15 @@ const Header = () => {
             Cerrar sesión
           </span>
           <div className='user-profile'>
-            <span className='user-greeting'>Hola, Usuario</span>
+            <span className='user-greeting'>Hola, Usuario
+            {userPayload ? userPayload.name : 'Invitado'}</span>
+
+            </span>
           </div>
         </div>
       </div>
     </header>
   )
 }
+
 export default Header

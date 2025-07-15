@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from '../../schemas/Login'
 import { toast, ToastContainer } from 'react-toastify'
+import { useAuthContext } from '../../hooks/useAuth'
 import './login.css'
+import { Navigate } from 'react-router-dom'
 const Login = () => {
   const {
     register,
@@ -18,9 +20,16 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      // Simular petición de login
-      await new Promise(resolve => setTimeout(resolve, 1000))
       console.log('Datos de login:', data)
+
+      const users = await fetch('https://jsonplaceholder.typicode.com/users')
+      const usersData = await users.json()
+      const user = usersData.find(user => user.email === data.email)
+      if (!user) {
+        throw new Error('Usuario no encontrado')
+      }
+
+      login(user) // Llama a la función de login del contexto
 
       // Mostrar mensaje de éxito
       toast.success('¡Inicio de sesión exitoso!', {
@@ -31,7 +40,13 @@ const Login = () => {
         pauseOnHover: true,
         draggable: true
       })
-
+setTimeout(() => {
+  Navigate('Newpost/'
+    user.id); // Redirige al usuario a la página de NewPost después de iniciar sesión
+  Navigate('/'); // Redirige al usuario a la página principal después de iniciar sesión
+  Navigate('/NewPost', 
+  ); // Redirige al usuario a la página principal después de iniciar sesión
+}, timeout);
       // Aquí iría la lógica de autenticación
       // Ejemplo: await authService.login(data.email, data.password)
     } catch (error) {
