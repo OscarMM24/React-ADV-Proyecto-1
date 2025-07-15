@@ -1,3 +1,4 @@
+import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter } from 'react-router-dom'
 import BlogRoutes from './routes/BlogRoutes'
 import Header from './components/Header/Header'
@@ -6,6 +7,7 @@ import './App.css'
 function App () {
   return (
     <>
+    <AuthProvider>
       <BrowserRouter>
         <Header />
         <div className='app'>
@@ -22,6 +24,7 @@ function App () {
           <p>© 2025 Blog de César Guerra. Todos los derechos reservados.</p>
         </div>
       </footer>
+    </AuthProvider>
     </>
   )
 }

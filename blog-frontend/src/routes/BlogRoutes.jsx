@@ -20,4 +20,3 @@ const BlogRoutes = () => {
 }
 
 export default BlogRoutes
-
